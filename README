@@ -1,0 +1,6 @@
+# Dansguardian Administrator
+# fernandobuzon@gmail.com
+
+1. Extract binary files from dansguardian-2.12.00.tar.gz at top directory.
+2. Binary files was compiled for FreeBSD 10.3
+3. Publish php files and enjoy
