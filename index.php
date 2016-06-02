@@ -35,6 +35,12 @@ echo '<tr><td><table>';
 
 foreach (glob("$etc/dansguardianf*.conf") as $filterconf)
 {
+	$arr[] = $filterconf;
+}
+sort($arr, SORT_NATURAL | SORT_FLAG_CASE);
+
+foreach ($arr as $filterconf)
+{
 	if ( $filterconf != "$etc/dansguardianf2.conf" )
 	{
 		$filtername = `grep '^groupname' $filterconf | awk -F '=' '{print \$2}' | sed 's/^ //' | sed "s/\'//g"`;

@@ -16,8 +16,17 @@ $num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf/
 $num = intval($num);
 $filtername = `grep '^groupname' $filterconf | awk -F '=' '{print \$2}' | sed 's/^ //' | sed "s/\'//g"`;
 
-// Rename confs
+// Remove users from that filter from filtergroupslist
+system("$sed -i '' '/filter$num\$/d' $filtergroupslist");
+
 foreach (glob("$etc/dansguardianf*.conf") as $config)
+{
+        $arr[] = $config;
+}
+sort($arr, SORT_NATURAL | SORT_FLAG_CASE);
+
+// Rename confs
+foreach ($arr as $config)
 {
 	$current = `echo $config | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
 	$current = intval($current);
@@ -25,6 +34,7 @@ foreach (glob("$etc/dansguardianf*.conf") as $config)
 	{
 		$next = $current - 1;
 		system("mv $etc/dansguardianf$current.conf $etc/dansguardianf$next.conf");
+		system("$sed -i '' 's/filter$current\$/filter$next/' $filtergroupslist");
 	}
 }
 
