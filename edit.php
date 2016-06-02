@@ -10,18 +10,18 @@ echo '</head>';
 echo '<body>';
 echo '<form action="ac_edit.php" method="post">';
 
-echo '<input type="hidden" name="file" value="' . $_GET['edit'] . '">';
-
 echo '<table align="center">';
 
 if ( $_GET['edit'] == 'exceptioniplist' )
 {
+	echo '<input type="hidden" name="file" value="' . $_GET['edit'] . '">';
 	echo '<tr><td align="center">Exce&ccedil;&otilde;es por IP</td></tr>';
-	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">' . htmlspecialchars(file_get_contents($exceptioniplist)) . '</textarea></td></tr>';
+	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">' . file_get_contents($exceptioniplist) . '</textarea></td></tr>';
 	echo '<tr><td align="center"><input type="submit" value="Salvar">&nbsp;<a href="index.php"><input type="button" value="Voltar"></a></td></tr>';
 }
 elseif ( $_GET['edit'] == 'filtergroupslist' )
 {
+	echo '<input type="hidden" name="file" value="' . $_GET['edit'] . '">';
 	echo '<tr><td align="center">Exce&ccedil;&otilde;es por Usu&aacute;rios</td></tr>';
 	echo '<tr><td align="center">(Um usu&aacute;rio por linha)</td></tr>';
 	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">';
@@ -45,6 +45,21 @@ elseif ( $_GET['edit'] == 'filtergroupslist' )
 
 	echo '</textarea></td></tr>';
 	echo '<tr><td align="center"><a href="ac_edit.php"><input type="submit" value="Salvar"></a>&nbsp;<a href="index.php"><input type="button" value="Voltar"></a></td></tr>';
+}
+elseif ( $_GET['filtername'] && $_GET['cat'] )
+{
+	$filtername = $_GET['filtername'];
+	$cat = $_GET['cat'];
+	$filterconf = $_GET['filterconf'];
+	$file = "$lists_dir/$filtername/$cat";
+
+	echo '<input type="hidden" name="file" value="' . $file . '">';
+	echo '<input type="hidden" name="filterconf" value="' . $filterconf . '">';
+
+	echo '<tr><td align="center"><b>' . $filtername . '</b></td></tr>';
+	echo '<tr><td align="center"><b>' . $cat . '</b></td></tr>';
+	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">' . file_get_contents("$file") . '</textarea></td></tr>';
+	echo '<tr><td align="center"><input type="submit" value="Salvar">&nbsp;<a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
 }
 
 echo '</table>';

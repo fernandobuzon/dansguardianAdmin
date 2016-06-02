@@ -44,7 +44,7 @@ foreach ($arr as $filterconf)
 	if ( $filterconf != "$etc/dansguardianf2.conf" )
 	{
 		$filtername = `grep '^groupname' $filterconf | awk -F '=' '{print \$2}' | sed 's/^ //' | sed "s/\'//g"`;
-		echo '<tr><td align="center">' . $filtername . '</td><td align="right">&nbsp;&nbsp;&nbsp;<input type="button" value="Editar">&nbsp;<a href="ac_del.php?filterconf=' . $filterconf . '"><input type="button" value="Remover"></a></td></tr>';
+		echo '<tr><td align="center">' . $filtername . '</td><td align="right">&nbsp;&nbsp;&nbsp;<a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Editar"></a>&nbsp;<a href="ac_del.php?filterconf=' . $filterconf . '"><input type="button" value="Remover"></a></td></tr>';
 	}
 }
 

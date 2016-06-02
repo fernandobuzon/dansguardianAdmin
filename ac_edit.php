@@ -42,6 +42,15 @@ elseif ( $_POST['file'] == 'filtergroupslist' )
 	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
 	echo '<tr><td align="center"><a href="index.php"><input type="button" value="Voltar"></a></td></tr>';
 }
+elseif ( $_POST['file'] && $_POST['filterconf'] )
+{
+	$file = $_POST['file'];
+	$filterconf = $_POST['filterconf'] ;
+
+	file_put_contents($file, $_POST['content']);
+	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
+	echo '<tr><td align="center"><a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
+}
 
 echo '</table>';
 
