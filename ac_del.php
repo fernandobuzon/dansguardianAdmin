@@ -11,7 +11,7 @@ echo '<body>';
 
 echo '<table align="center">';
 
-$filterconf = $_GET['filterconf'];
+$filterconf = $_POST['filterconf'];
 $num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
 $num = intval($num);
 $filtername = `grep '^groupname' $filterconf | awk -F '=' '{print \$2}' | sed 's/^ //' | sed "s/\'//g"`;
@@ -49,8 +49,7 @@ if ( $filtername && $num )
 	system("rm -rf $lists_dir/$filtername");
 }
 
-echo '<tr><td align="center">Filtro ' . $filtername . ' removido</td></tr>';
-echo '<tr><td align="center">Os usu&aacuterios dessa filtragem passar&atilde;o agora para o filtro default</td></tr>';
+echo '<tr><td align="center">Grupo ' . $filtername . ' removido</td></tr>';
 echo '<tr><td align="center"><a href="index.php"><input type="button" value="Voltar"></a></td></tr>';
 
 echo '</table>';

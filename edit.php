@@ -61,6 +61,22 @@ elseif ( $_GET['filtername'] && $_GET['cat'] )
 	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">' . file_get_contents("$file") . '</textarea></td></tr>';
 	echo '<tr><td align="center"><input type="submit" value="Salvar">&nbsp;<a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
 }
+elseif ( $_GET['members'] == 'OK' )
+{
+	$filterconf = $_GET['filterconf'];
+	$filtername = $_GET['filtername'];
+
+	echo '<input type="hidden" name="members" value="OK">';
+	echo '<input type="hidden" name="filterconf" value="' . $filterconf . '">';
+
+	$num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
+	$num = intval($num);
+	$content = `grep 'filter$num\$' $filtergroupslist | sed 's/=filter$num//'`;
+
+	echo '<tr><td align="center"><b>Membros do grupo ' . $filtername . '</b></td></tr>';
+	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">' . $content . '</textarea></td></tr>';
+	echo '<tr><td align="center"><input type="submit" value="Salvar">&nbsp;<a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
+}
 
 echo '</table>';
 

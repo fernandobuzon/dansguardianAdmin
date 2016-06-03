@@ -19,25 +19,15 @@ if ( $_POST['file'] == 'exceptioniplist' )
 }
 elseif ( $_POST['file'] == 'filtergroupslist' )
 {
-        $lines = file($filtergroupslist);
-        foreach($lines as $line)
-        {
-                $values = explode('=', $line);
-                if (rtrim($values[1]) && rtrim($values[1]) != 'filter2')
-                {
-                        $new[] = "$values[0]=$values[1]";
-                }
-        }
-	$new = implode('', $new);
+	$content = $_POST['content'];
+	system("sed -i '' '/filter2\$/d' $filtergroupslist");
 
-	// Append '\n' to last line
-	$cont = $_POST['content'] . "\n";
-
-	// Add string '=filter2' after username
-	$new .= preg_replace('~[\r\n]+~', "=filter2\n", $cont);
-
-	file_put_contents($filtergroupslist, $new);
-	system("sed -i '' '/^=/d' $filtergroupslist");
+	foreach(preg_split("/((\r?\n)|(\r\n?))/", $content) as $line)
+	{
+		system("sed -i '' '/^$line\=/d' $filtergroupslist");
+		system("echo '$line=filter2' >> $filtergroupslist");
+	}
+	system("sed -i '' '/^\=/d' $filtergroupslist");
 
 	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
 	echo '<tr><td align="center"><a href="index.php"><input type="button" value="Voltar"></a></td></tr>';
@@ -48,6 +38,26 @@ elseif ( $_POST['file'] && $_POST['filterconf'] )
 	$filterconf = $_POST['filterconf'] ;
 
 	file_put_contents($file, $_POST['content']);
+	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
+	echo '<tr><td align="center"><a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
+}
+elseif ( $_POST['members'] == 'OK' )
+{
+	$content = $_POST['content'];
+        $filterconf = $_POST['filterconf'];
+
+        $num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
+        $num = intval($num);
+
+	system("sed -i '' '/filter$num\$/d' $filtergroupslist");
+
+	foreach(preg_split("/((\r?\n)|(\r\n?))/", $content) as $line)
+	{
+		system("sed -i '' '/^$line\=/d' $filtergroupslist");
+		system("echo '$line=filter$num' >> $filtergroupslist");
+	}
+	system("sed -i '' '/^\=/d' $filtergroupslist");
+ 
 	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
 	echo '<tr><td align="center"><a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
 }
