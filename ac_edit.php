@@ -13,13 +13,14 @@ echo '<table align="center">';
 
 if ( $_POST['file'] == 'exceptioniplist' )
 {
-	file_put_contents($exceptioniplist, $_POST['content']);
+	$content = str_replace("\r", '', $_POST['content']);
+	file_put_contents($exceptioniplist, $content);
 	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
 	echo '<tr><td align="center"><a href="index.php"><input type="button" value="Voltar"></a></td></tr>';
 }
 elseif ( $_POST['file'] == 'filtergroupslist' )
 {
-	$content = $_POST['content'];
+	$content = str_replace("\r", '', $_POST['content']);
 	system("sed -i '' '/filter2\$/d' $filtergroupslist");
 
 	foreach(preg_split("/((\r?\n)|(\r\n?))/", $content) as $line)
@@ -34,16 +35,17 @@ elseif ( $_POST['file'] == 'filtergroupslist' )
 }
 elseif ( $_POST['file'] && $_POST['filterconf'] )
 {
+	$content = str_replace("\r", '', $_POST['content']);
 	$file = $_POST['file'];
 	$filterconf = $_POST['filterconf'] ;
 
-	file_put_contents($file, $_POST['content']);
+	file_put_contents($file, $content);
 	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
 	echo '<tr><td align="center"><a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';
 }
 elseif ( $_POST['members'] == 'OK' )
 {
-	$content = $_POST['content'];
+	$content = str_replace("\r", '', $_POST['content']);
         $filterconf = $_POST['filterconf'];
 
         $num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
