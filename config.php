@@ -1,5 +1,8 @@
 <?php
 
+// To use PFSense authentication uncomment this
+// require_once("/etc/inc/authgui.inc");
+
 $conf='/usr/local/etc/dansguardian/dansguardian.conf';
 $etc='/usr/local/etc/dansguardian';
 $bin='/usr/local/sbin/dansguardian';

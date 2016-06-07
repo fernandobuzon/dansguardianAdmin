@@ -15,7 +15,7 @@ $status=`ps ax | grep dansguardian | sed '/grep/d'`;
 if ( $status )
 {
 	echo '<tr><td align="center"><b>Status: <font color="green">Rodando.</b></font></td></tr>';
-	echo '<tr><td align="center"><a href="ac_status.php?action=stop"><input type="button" value="Parar"></a>&nbsp;<a href="ac_status.php?action=reload"><input type="button" value="Recarregar"></a></td></tr>';
+	echo '<tr><td align="center"><a href="ac_status.php?action=stop"><input type="button" value="Parar"></a>&nbsp;<a href="ac_status.php?action=reload"><input type="button" value="Recarregar"></a>&nbsp;<a href="ac_status.php?action=restart"><input type="button" value="Reiniciar"></a></td></tr>';
 }
 else
 {
