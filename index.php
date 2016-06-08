@@ -58,6 +58,7 @@ foreach ($arr as $filterconf)
 echo '</table></td></tr>';
 echo '<tr><td><hr></td></tr>';
 echo '<tr><td align="center"><a href="add.php"><input type="button" value="Novo Grupo"></a></td></tr>';
+echo '<tr><td align="center"><a href="../"><input type="button" value="Voltar"></a></td></tr>';
 
 echo '</table>';
 
