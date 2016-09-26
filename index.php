@@ -25,12 +25,28 @@ else
 
 echo '<tr><td><hr></td></tr>';
 
+$check_method=`grep '^authplugin' $conf | awk -F 'authplugins' '{print \$2}' | awk -F '.' '{print \$1}' | sed 's/\///'`;
+$check_method = trim(preg_replace('/\s\s+/', ' ', $check_method));
+
 echo '<tr><td align="center"><a href="edit.php?edit=exceptioniplist"><input type="button" value="Exce&ccedil;&otilde;es por IP"></a></td></tr>';
-echo '<tr><td align="center"><a href="edit.php?edit=filtergroupslist"><input type="button" value="Exce&ccedil;&otilde;es por Usu&aacute;rio"></a></td></tr>';
+
+if ($check_method == 'proxy-basic')
+{
+	echo '<tr><td align="center"><a href="edit.php?edit=filtergroupslist"><input type="button" value="Exce&ccedil;&otilde;es por Usu&aacute;rio"></a></td></tr>';
+}
 
 echo '<tr><td><hr></td></tr>';
-
 echo '<tr><td align="center"><b>Grupos de Filtragem:</b></td></tr>';
+
+if ($check_method == 'ip')
+{
+	echo '<tr><td align="center"><input type="button" value="Membros via IP" disabled><a href="ac_authplugin.php?method=login"><input type="button" value="Membros via Login"></a></td></tr>';
+}
+elseif ($check_method == 'proxy-basic')
+{
+	echo '<tr><td align="center"><a href="ac_authplugin.php?method=ip"><input type="button" value="Membros via IP"></a><input type="button" value="Membros via Login" disabled></td></tr>';
+}
+
 echo '<tr><td><table>';
 
 foreach (glob("$etc/dansguardianf*.conf") as $filterconf)

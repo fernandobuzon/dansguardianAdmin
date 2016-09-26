@@ -45,6 +45,8 @@ elseif ( $_POST['file'] && $_POST['filterconf'] )
 }
 elseif ( $_POST['members'] == 'OK' )
 {
+	$filtergroupslist = $_POST['p_file'];
+
 	$content = str_replace("\r", '', $_POST['content']);
         $filterconf = $_POST['filterconf'];
 

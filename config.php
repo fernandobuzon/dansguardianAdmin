@@ -9,6 +9,7 @@ $etc='/usr/local/etc/dansguardian';
 $bin='/usr/local/sbin/dansguardian';
 $exceptioniplist='/usr/local/etc/dansguardian/exceptioniplist';
 $filtergroupslist='/usr/local/etc/dansguardian/filtergroupslist';
+$ipgroups='/usr/local/etc/dansguardian/ipgroups';
 $lists_dir='/usr/local/etc/dansguardian/lists';
 $lists_install='/usr/local/etc/dansguardian/lists/install';
 $conf_install='/usr/local/etc/dansguardian/dansinstall.conf';
