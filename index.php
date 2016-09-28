@@ -40,7 +40,7 @@ echo '<tr><td align="center"><b>Grupos de Filtragem:</b></td></tr>';
 
 if ($check_method == 'ip')
 {
-	echo '<tr><td align="center"><input type="button" value="Membros via IP" disabled><a href="ac_authplugin.php?method=login"><input type="button" value="Membros via Login"></a></td></tr>';
+	echo '<tr><td align="center"><input type="button" value="Membros via IP" disabled><a href="ac_authplugin.php?method=proxy-basic"><input type="button" value="Membros via Login"></a></td></tr>';
 }
 elseif ($check_method == 'proxy-basic')
 {

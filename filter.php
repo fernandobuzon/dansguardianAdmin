@@ -15,6 +15,9 @@ $filterconf = $_GET['filterconf'];
 $filtername = `grep '^groupname' $filterconf | awk -F '=' '{print \$2}' | sed 's/^ //' | sed "s/\'//g"`;
 $naughtynesslimit = `grep '^naughtynesslimit' $filterconf | awk -F '=' '{print \$2}' | sed 's/^ //' | sed "s/\'//g"`;
 
+$check_method=`grep '^authplugin' $conf | awk -F 'authplugins' '{print \$2}' | awk -F '.' '{print \$1}' | sed 's/\///'`;
+$check_method = trim(preg_replace('/\s\s+/', ' ', $check_method));
+
 echo '<input type="hidden" name="filterconf" value="' . $filterconf . '">';
 
 echo '<table align="center">';
@@ -29,7 +32,7 @@ echo '<tr><td align="center"><input type="submit" value="Modificar"</td></tr>';
 echo '<tr><td><hr></td></tr>';
 
 echo '<tr><td align="center">Membros do Grupo</td></tr>';
-echo '<tr><td align="center"><a href="edit.php?members=OK&filterconf=' . $filterconf . '&filtername=' . $filtername . '"><input type="button" value="Gerenciar"></a></td></tr>';
+echo '<tr><td align="center"><a href="edit.php?members=OK&filterconf=' . $filterconf . '&filtername=' . $filtername . '&method=' . $check_method . '"><input type="button" value="Gerenciar"></a></td></tr>';
 
 echo '<tr><td><hr></td></tr>';
 

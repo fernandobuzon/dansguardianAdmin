@@ -17,7 +17,7 @@ if ($method == 'ip')
 {
 	system("$sed -i '' \"s/^authplugin.*$/authplugin = '\/usr\/local\/etc\/dansguardian\/authplugins\/ip.conf'/\" $conf");
 }
-elseif ($method == 'login')
+elseif ($method == 'proxy-basic')
 {
 	system("$sed -i '' \"s/^authplugin.*$/authplugin = '\/usr\/local\/etc\/dansguardian\/authplugins\/proxy-basic.conf'/\" $conf");
 }

@@ -45,7 +45,12 @@ elseif ( $_POST['file'] && $_POST['filterconf'] )
 }
 elseif ( $_POST['members'] == 'OK' )
 {
-	$filtergroupslist = $_POST['p_file'];
+	$method = $_POST['method'];
+
+        if ($method == 'proxy-basic')
+                $filem = $filtergroupslist;
+        elseif ($method == 'ip')
+                $filem = $ipgroups;
 
 	$content = str_replace("\r", '', $_POST['content']);
         $filterconf = $_POST['filterconf'];
@@ -53,14 +58,14 @@ elseif ( $_POST['members'] == 'OK' )
         $num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
         $num = intval($num);
 
-	system("sed -i '' '/filter$num\$/d' $filtergroupslist");
+	system("sed -i '' '/filter$num\$/d' $filem");
 
 	foreach(preg_split("/((\r?\n)|(\r\n?))/", $content) as $line)
 	{
-		system("sed -i '' '/^$line\=/d' $filtergroupslist");
-		system("echo '$line=filter$num' >> $filtergroupslist");
+		system("sed -i '' '/^$line\=/d' $filem");
+		system("echo '$line=filter$num' >> $filem");
 	}
-	system("sed -i '' '/^\=/d' $filtergroupslist");
+	system("sed -i '' '/^\=/d' $filem");
  
 	echo '<tr><td align="center">Par&acirc;metros atualizados</td></tr>';
 	echo '<tr><td align="center"><a href="filter.php?filterconf=' . $filterconf . '"><input type="button" value="Voltar"></a></td></tr>';

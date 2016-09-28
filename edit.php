@@ -65,13 +65,20 @@ elseif ( $_GET['members'] == 'OK' )
 {
 	$filterconf = $_GET['filterconf'];
 	$filtername = $_GET['filtername'];
+	$method = $_GET['method'];
+
+	if ($method == 'proxy-basic')
+		$filem = $filtergroupslist;
+	elseif ($method == 'ip')
+		$filem = $ipgroups;
 
 	echo '<input type="hidden" name="members" value="OK">';
 	echo '<input type="hidden" name="filterconf" value="' . $filterconf . '">';
+	echo '<input type="hidden" name="method" value="' . $method . '">';
 
 	$num = `echo $filterconf | awk -F 'dansguardianf' '{print \$2}' | sed 's/\.conf//'`;
 	$num = intval($num);
-	$content = `grep 'filter$num\$' $filtergroupslist | sed 's/=filter$num//'`;
+	$content = `grep 'filter$num\$' $filem | sed 's/=filter$num//'`;
 
 	echo '<tr><td align="center"><b>Membros do grupo ' . $filtername . '</b></td></tr>';
 	echo '<tr><td align="center"><textarea name="content" rows="30" cols="100">' . $content . '</textarea></td></tr>';
